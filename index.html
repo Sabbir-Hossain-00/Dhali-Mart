@@ -8,8 +8,49 @@
     <!-- daisyUi cdn -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 </head>
 <body>
-    <h1 class="text-4xl">Dhali Mart</h1>
+    <header>
+        <div class="bg-gradient-to-r from-white via-gray-200 to-white border-b border-b-gray-300">
+            <nav class="container mx-auto px-3 md:px-0 py-3 flex items-center justify-between ">
+                <!-- logo -->
+                 <div>
+                    <h1 class="text-xl font-bold text-[#10B981]">DHALI MART</h1>
+                 </div>
+                 <!-- search -->
+                  <div>
+                    <input type="text" placeholder="Search your product" class="input pr-20" />
+                  </div>
+                <!-- cart -->
+                 <div>
+                    <a href="cart.html"><i id="cart" class="fa-solid fa-cart-shopping text-xl cursor-pointer hover:bg-gray-200 p-3 hover:border border-gray-300 rounded-lg"></i></a>
+                 </div>
+            </nav>
+        </div>
+    </header>
+    <main class="container mx-auto px-3 md:px-0">
+        <section class="py-20">
+            <!-- section title -->
+             <h1 class="text-3xl md:text-4xl text-center text-[#60A5FA]">Enjoy Your Shoping</h1>
+
+             <!-- products container-->
+             <div id="product-container" class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                
+
+             </div>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/index.js"></script>
 </body>
 </html>
