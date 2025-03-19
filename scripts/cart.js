@@ -2,13 +2,21 @@
 
 
 
-const handleRemoveFromLocal = (value1 , value2)=>{
-    console.log(value1);
+const handleRemoveFromLocal = (id , value)=>{
+    console.log(id);
+    const subTotal = document.getElementById("sub-total");
+    let totalValue = subTotal.innerText ;
+    let total = 0 ;
     const newArr = getLocalData.filter((currElm)=>{
-        return currElm[0] !== value1 ;
+      total = totalValue - (currElm.quantity*currElm.price);
+        return currElm.id !== id ;
+        
     });
-    value2.innerHTML = "";
+    
+    document.getElementById("sub-total").innerText = total ;
+    value.innerHTML = "";
     localStorage.setItem("cartArr",JSON.stringify(newArr));
+    
 }
 
 
@@ -30,15 +38,15 @@ showCartFromLocal = ()=>{
                     <div class="avatar">
                       <div class="mask mask-squircle h-12 w-12">
                         <img
-                          src="${data[3]}"
+                          src="${data.image}"
                           alt="Avatar Tailwind CSS Component" />
                       </div>
                     </div>
                 </td>
-                <td class="border border-gray-200">${data[0]}</td>
-                <td class="border border-gray-200">${data[2]}</td>
-                <td class="border border-gray-200">$${data[1]}</td>
-                <td class="border border-gray-200">$${data[2] * data[1]}</td>
+                <td class="border border-gray-200">${data.name}</td>
+                <td class="border border-gray-200">${data.quantity}</td>
+                <td class="border border-gray-200">$${data.price}</td>
+                <td class="border border-gray-200">$${data.quantity * data.price}</td>
                 <th class="border border-gray-200">
                   <button  class="remove-btn btn btn-ghost ">Delete</button>
                 </th>
@@ -48,12 +56,24 @@ showCartFromLocal = ()=>{
         const removeBtn = newTr.querySelector(".remove-btn");
 
         removeBtn.addEventListener("click",(e)=>{
-            const val1 = e.target.parentElement.parentElement.children[1].innerHTML ;
-            val2 = e.target.parentElement.parentElement ;
-            handleRemoveFromLocal(val1 , val2);
+            value = e.target.parentElement.parentElement ;
+            handleRemoveFromLocal(data.id , value);
         })
     }
 }
 
 
+
+const showSubtotal = ()=>{
+  const subTotal = document.getElementById("sub-total")
+  let total = 0 ;
+  for(let data of getLocalData){
+    let addTotal = data.quantity * data.price ;
+    total = total + addTotal;
+    
+  }
+  subTotal.innerText = total ;
+}
+
 showCartFromLocal();
+showSubtotal();

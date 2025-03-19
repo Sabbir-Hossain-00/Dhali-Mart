@@ -25,9 +25,49 @@ const getCartDetailsFromLocal = ()=>{
 const getLocalData = getCartDetailsFromLocal() || [];
 
 
-const handleAddToCart = (name, price, countVal , img) => {
+const handleAddToCart = ( id , name, price, countVal , img) => {
+
+  let countValue = parseInt(countVal.innerText);
+
+
+  let exsistedProduct = getLocalData.find((currElm)=>{
+   return currElm.id === id ;
+  });
+
+
+
+   if(exsistedProduct && countValue > 1){
   
-  getLocalData.push([name,price,countVal.innerText,img]);
+    countValue = exsistedProduct.quantity + countValue ;
+
+    let updatedCart = {
+      id : id,
+      name : name,
+      price : price,
+      quantity:countValue,
+      image:img };
+
+    updatedCart = getLocalData.map((currPod)=>{
+      return currPod.id === id ? updatedCart : currPod ;
+    });
+
+    localStorage.setItem("cartArr",JSON.stringify(updatedCart));
+    countVal.innerText = 1 ;
+  }
+
+  if(exsistedProduct){
+    return false ;
+  }
+
+
+  getLocalData.push({
+    id : id,
+    name : name,
+    price : price,
+    quantity:countValue,
+    image:img 
+
+  });
   localStorage.setItem("cartArr",JSON.stringify(getLocalData));
   countVal.innerText = 1 ;
 
@@ -75,7 +115,7 @@ const showProducts = () => {
 
     const addToCartBtn = newDiv.querySelector(".add-to-cart-btn");
     addToCartBtn.addEventListener("click", () => {
-      handleAddToCart(product.title, product.price, countValue ,product.image );
+      handleAddToCart( product.id,product.title, product.price, countValue ,product.image );
     });
   }
 };
