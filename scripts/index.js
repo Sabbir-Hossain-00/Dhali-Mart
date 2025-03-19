@@ -22,10 +22,10 @@ const getCartDetailsFromLocal = ()=>{
   return JSON.parse(localStorage.getItem("cartArr"));
 }
 
-const getLocalData = getCartDetailsFromLocal() || [];
-
 
 const handleAddToCart = ( id , name, price, countVal , img) => {
+
+  const getLocalData = getCartDetailsFromLocal();
 
   let countValue = parseInt(countVal.innerText);
 

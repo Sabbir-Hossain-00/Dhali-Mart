@@ -1,19 +1,17 @@
 
-
+const getCartFromLocal = ()=>{
+  return JSON.parse(localStorage.getItem("cartArr"))
+ }
 
 
 const handleRemoveFromLocal = (id , value)=>{
-    console.log(id);
-    const subTotal = document.getElementById("sub-total");
-    let totalValue = subTotal.innerText ;
-    let total = 0 ;
+    const getLocalData = getCartFromLocal();
     const newArr = getLocalData.filter((currElm)=>{
-      total = totalValue - (currElm.quantity*currElm.price);
+      
         return currElm.id !== id ;
         
     });
-    
-    document.getElementById("sub-total").innerText = total ;
+
     value.innerHTML = "";
     localStorage.setItem("cartArr",JSON.stringify(newArr));
     
@@ -21,14 +19,10 @@ const handleRemoveFromLocal = (id , value)=>{
 
 
 
-const getCartFromLocal = ()=>{
- return JSON.parse(localStorage.getItem("cartArr"))
-}
-
-const getLocalData = getCartFromLocal();
 
 showCartFromLocal = ()=>{
     const tableBody = document.getElementById("table-body");
+    const getLocalData = getCartFromLocal();
     for(const data of getLocalData){
       
         const newTr = document.createElement("tr");
@@ -56,8 +50,10 @@ showCartFromLocal = ()=>{
         const removeBtn = newTr.querySelector(".remove-btn");
 
         removeBtn.addEventListener("click",(e)=>{
-            value = e.target.parentElement.parentElement ;
+            
+            let value = e.target.parentElement.parentElement ;
             handleRemoveFromLocal(data.id , value);
+            showSubtotal();
         })
     }
 }
@@ -65,6 +61,7 @@ showCartFromLocal = ()=>{
 
 
 const showSubtotal = ()=>{
+  const getLocalData = getCartFromLocal();
   const subTotal = document.getElementById("sub-total")
   let total = 0 ;
   for(let data of getLocalData){
